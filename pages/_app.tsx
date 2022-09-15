@@ -5,6 +5,7 @@ import { getCookie, setCookies } from 'cookies-next';
 import Head from 'next/head';
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
+import Layout from '../components/Layout/Layout';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
@@ -16,10 +17,12 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
     setCookies('mantine-color-scheme', nextColorScheme, { maxAge: 60 * 60 * 24 * 30 });
   };
 
+  const appName = process.env.NEXT_PUBLIC_APPLICATION_NAME;
+
   return (
     <>
       <Head>
-        <title>Mantine next example</title>
+        <title>{appName || 'Blank Template'} | Wishes</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         <link rel="shortcut icon" href="/favicon.svg" />
       </Head>
@@ -27,7 +30,9 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
           <NotificationsProvider>
-            <Component {...pageProps} />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
           </NotificationsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
