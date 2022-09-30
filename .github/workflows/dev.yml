@@ -21,6 +21,9 @@ jobs:
         
       - name: Add .nojekyll file
         run: touch out/.nojekyll
+        
+      - name: Change base-tag in index.html from / to TodoBlazor
+        run: sed -i 's/<base href="\/" \/>/<base href="\/whisperer\/" \/>/g' out/index.html
     
       - name: Push
         uses: s0/git-publish-subdir-action@develop
