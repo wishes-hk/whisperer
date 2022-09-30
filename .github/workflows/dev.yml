@@ -18,6 +18,9 @@ jobs:
 
       - name: Build
         run: CI='' npm run export # The build command of your project
+        
+      - name: Add .nojekyll file
+        run: touch out/.nojekyll
     
       - name: Push
         uses: s0/git-publish-subdir-action@develop
